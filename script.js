@@ -6,11 +6,20 @@ function computerPlay(){
 //One round of RPS
 let results = ["Ai Wins", "Draw","Human Wins"];
 function rpsRound(ai,human){
-    if(ai == "Rock"){
-        if(human == "Rock"){
+    let computerSelection;
+    let humanSelection;
+    let rockreg = /Rock/i;
+    let scissorsreg = /Scissors/i;
+    let paperreg = /paper/i;
+    if(rockreg.test(human)) {humanSelection = "Rock";}
+    if(scissorsreg.test(human)) {humanSelection = "Scissors";}
+    if(paperreg.test(human)) {humanSelection = "Paper";}
+    computerSelection = ai;
+    if(computerSelection == "Rock"){
+        if(humanSelection == "Rock"){
             return results[1];
         }
-        else if(human == "Paper"){
+        else if(humanSelection == "Paper"){
             return results[2];
         }
         else {
@@ -18,22 +27,22 @@ function rpsRound(ai,human){
         }
 
     }
-    else if(ai == "Paper"){
-        if(human == "Rock"){
+    else if(computerSelection == "Paper"){
+        if(humanSelection == "Rock"){
             return results[0];
         }
-        else if(human == "Paper"){
+        else if(humanSelection == "Paper"){
             return results[1];
         }
         else {
             return results[2];
         }
     }
-    else if(ai == "Scissors"){
-        if(human == "Rock"){
+    else if(computerSelection == "Scissors"){
+        if(humanSelection == "Rock"){
             return results[2];
         }
-        else if(human == "Paper"){
+        else if(humanSelection == "Paper"){
             return results[1];
         }
         else {
@@ -41,3 +50,4 @@ function rpsRound(ai,human){
         }
     }   
 }
+console.log(rpsRound(computerPlay(),"rOCK"));

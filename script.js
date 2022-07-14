@@ -1,53 +1,24 @@
 //Returns a random choice from computer
-let compOutcomes = ["Rock","Paper","Scissors"];
 function computerPlay(){
-    return compOutcomes[Math.floor(Math.random() * compOutcomes.length)];
+    return Math.floor(Math.random() * compOutcomes.length);
 }
-//One round of RPS
-let results = ["Ai Wins", "Draw","Human Wins"];
-function rpsRound(ai,human){
-    let computerSelection;
-    let humanSelection;
+//Makes selection case insensitive
+function caseInsensitive(input){
     let rockreg = /Rock/i;
     let scissorsreg = /Scissors/i;
     let paperreg = /paper/i;
-    if(rockreg.test(human)) {humanSelection = "Rock";}
-    if(scissorsreg.test(human)) {humanSelection = "Scissors";}
-    if(paperreg.test(human)) {humanSelection = "Paper";}
-    computerSelection = ai;
-    if(computerSelection == "Rock"){
-        if(humanSelection == "Rock"){
-            return results[1];
-        }
-        else if(humanSelection == "Paper"){
-            return results[2];
-        }
-        else {
-            return results[0];
-        }
-
-    }
-    else if(computerSelection == "Paper"){
-        if(humanSelection == "Rock"){
-            return results[0];
-        }
-        else if(humanSelection == "Paper"){
-            return results[1];
-        }
-        else {
-            return results[2];
-        }
-    }
-    else if(computerSelection == "Scissors"){
-        if(humanSelection == "Rock"){
-            return results[2];
-        }
-        else if(humanSelection == "Paper"){
-            return results[1];
-        }
-        else {
-            return results[0];
-        }
-    }   
+    if(rockreg.test(input)) {return "Rock";}
+    else if(scissorsreg.test(input)) {return "Scissors";}
+    else if(paperreg.test(input)) {return  "Paper";}
 }
-console.log(rpsRound(computerPlay(),"rOCK"));
+//One round of RPS
+let possibleChoices = ["Scissors","Paper","Rock"];
+let outcomes = ["You lost","Player wins","Draw","You lost","Player wins"]
+function playRound(uncheckedPlayerSelection,computerSelection){
+    let playerSelection = possibleChoices.indexOf(caseInsensitive(uncheckedPlayerSelection));
+    return outcomes[(playerSelection - computerSelection) + 2];
+}
+console.log(playRound("Rock",0));
+
+
+

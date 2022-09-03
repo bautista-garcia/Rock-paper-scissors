@@ -8,24 +8,24 @@
     else if(paperreg.test(input)) {return  "Paper";}
 }
 */
-
+//Adjust this algorithm to be more random, to many 0s.
 const possibleChoices = ["Rock","Paper","Scissors"];
 function computerPlay(){
     return Math.floor(Math.random() * possibleChoices.length);
 }
-let outcomes = ["You lost","Player wins","Draw","You lost","Player wins"]
-//Adjust playRound algorithm to display the correct result
+let outcomes = ["You Win","You Lost","Draw","You Win","You Lost"]
 function playRound(playerSelection,computerSelection){
-    console.log(outcomes[(playerSelection - computerSelection) + 2]);
+    alert(outcomes[(playerSelection - computerSelection) + 2]);
+    alert(computerSelection);
 }
 
 const rockChoice = document.getElementById('rock');
 const paperChoice = document.getElementById('paper');
 const scissorsChoice = document.getElementById('scissors');
-
-rockChoice.addEventListener('click',playRound.bind(this,0,computerPlay()));
-paperChoice.addEventListener('click',playRound.bind(this,1,computerPlay()));
-scissorsChoice.addEventListener('click',playRound.bind(this,2,computerPlay()));
+const compSelection = computerPlay();
+rockChoice.addEventListener('click',playRound.bind(this,0,compSelection));
+paperChoice.addEventListener('click',playRound.bind(this,1,compSelection));
+scissorsChoice.addEventListener('click',playRound.bind(this,2,compSelection));
 
 
 

@@ -1,47 +1,39 @@
 
-/*function caseInsensitive(input){
-    let rockreg = /Rock/i;
-    let scissorsreg = /Scissors/i;
-    let paperreg = /paper/i;
-    if(rockreg.test(input)) {return "Rock";}
-    else if(scissorsreg.test(input)) {return "Scissors";}
-    else if(paperreg.test(input)) {return  "Paper";}
-}
-*/
-//Adjust this algorithm to be more random, to many 0s.
+let rounds = 0;
+let playerScore,computerScore;
 const possibleChoices = ["Rock","Paper","Scissors"];
 function computerPlay(){
     return Math.floor(Math.random() * possibleChoices.length);
 }
-let outcomes = ["You Win","You Lost","Draw","You Win","You Lost"]
+let outcomes = ["Round Won","Round Lost","Round Drawn","Round Won","Round Lost"]
 function playRound(playerSelection,computerSelection){
-    alert(outcomes[(playerSelection - computerSelection) + 2]);
-    alert(computerSelection);
+    let result = (playerSelection - computerSelection) + 2;
+    alert(outcomes[result]);
+    if(outcomes[result] == 'Round Won'){playerScore ++;}
+    else if(outcomes[result] == 'Round Lost'){computerScore ++;}
+    else{playerScore ++; computerScore ++;}
 }
-
 const rockChoice = document.getElementById('rock');
 const paperChoice = document.getElementById('paper');
 const scissorsChoice = document.getElementById('scissors');
-const compSelection = computerPlay();
-rockChoice.addEventListener('click',playRound.bind(this,0,compSelection));
-paperChoice.addEventListener('click',playRound.bind(this,1,compSelection));
-scissorsChoice.addEventListener('click',playRound.bind(this,2,compSelection));
 
 
-
-
-
-/*function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    for(let i = 0; i < 5; i ++){
-        let result = playRound(prompt("Rock paper or scissors: "), computerPlay());
-        result);
-        if(result == "You lost"){computerScore ++;}
-        else if(result == "Player wins"){playerScore ++;}
+function playGame(){
+    rockChoice.addEventListener('click',()=> {playRound(0,computerPlay()); rounds ++;});
+    paperChoice.addEventListener('click',()=> {playRound(1,computerPlay()); rounds ++});
+    scissorsChoice.addEventListener('click',()=> {playRound(2,computerPlay()); rounds ++});
+    playerScore = 0;
+    computerScore = 0;
+    if(rounds == 5){
+        rockChoice.removeEventListener('click',()=> {playRound(0,computerPlay()); rounds ++;});
+        paperChoice.removeEventListener('click',()=> {playRound(1,computerPlay()); rounds ++});
+        scissorsChoice.removeEventListener('click',()=> {playRound(2,computerPlay()); rounds ++});
+        alert('Hellooooo');
     }
-    "Player scores: ",playerScore,"Computer scores: ", computerScore);
+    return;
 }
-game();
-*/
+playGame();
 
+/*Overview: -Adjust this algorithm to be more random, to many 0s
+-Adjust the five rounds stuff to remove the event listeners after five clicks.
+*/

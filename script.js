@@ -20,6 +20,7 @@ const SELECTIONS = [
 
 const playerScore = document.querySelector('[data-your-score]');
 const computerScore = document.querySelector('[data-computer-score]');
+const finalScore = document.querySelector('[data-game-score]');
 
 
 
@@ -33,14 +34,23 @@ function incrementScore(scoreSpan){
     scoreSpan.innerText = parseInt(scoreSpan.innerText) + 1
 }
 
+function resetScore(scoreSpan){
+    scoreSpan.innerText = '0';
+}
+
 const selectionButtons = document.querySelectorAll('[data-selection]')
 selectionButtons.forEach(selectionButton => {
     selectionButton.addEventListener('click', e => {
         const selectionName = selectionButton.dataset.selection; //Uses data-selection property from html
         const selection = SELECTIONS.find(selection => selection.name === selectionName) //We use find to access the array element that matches our player selection with all of its properties
-        makeSelection(selection);
+        makeSelection(selection); //The round is played when the button is clicked
     })
 })
+
+function isWinner(selection,opponentSelection){
+    return selection.beats === opponentSelection.name;
+}
+
 
 function makeSelection(selection){
     const computerSelection = computerPlay();
@@ -50,29 +60,18 @@ function makeSelection(selection){
 
     if(yourWinner) incrementScore(playerScore);
     if(computerWinner) incrementScore(computerScore);
-}
 
-function isWinner(selection,opponentSelection){
-    return selection.beats === opponentSelection.name;
-}
+    console.log(finalScore.innerText)
 
-/*
-function playGame(){
-    rockChoice.addEventListener('click',()=> {playRound(0,computerPlay()); rounds ++;});
-    paperChoice.addEventListener('click',()=> {playRound(1,computerPlay()); rounds ++});
-    scissorsChoice.addEventListener('click',()=> {playRound(2,computerPlay()); rounds ++});
-    playerScore = 0;
-    computerScore = 0;
-    if(rounds == 5){
-        rockChoice.removeEventListener('click',()=> {playRound(0,computerPlay()); rounds ++;});
-        paperChoice.removeEventListener('click',()=> {playRound(1,computerPlay()); rounds ++});
-        scissorsChoice.removeEventListener('click',()=> {playRound(2,computerPlay()); rounds ++});
-        alert('Hellooooo');
+    if((parseInt(computerScore.innerText) + parseInt(playerScore.innerText)) == 5) {
+        if(parseInt(computerScore.innerText) == '3') {
+            finalScore.innerText = 'Computer Wins'
+        } 
+        else {
+            finalScore.innerText = 'Player wins'; 
+        }
+        resetScore(playerScore)
+        resetScore(computerScore)
     }
-    return;
 }
-playGame();
 
-/*Overview: -Adjust this algorithm to be more random, to many 0s
--Adjust the five rounds stuff to remove the event listeners after five clicks.
-*/

@@ -1,7 +1,16 @@
 body {
+    font-family: 'Poppins';
+    font-weight: 900;
+    font-style: normal;
     background-color: #699EBF;
     color: white;
     font-size: 2em;
+}
+
+.final-result{
+    margin-top: 2em;
+    display: flex;
+    justify-content: center;
 }
 
 .selections{
@@ -29,9 +38,20 @@ body {
     display: grid;
     justify-content: center;
     grid-template-columns: repeat(2,1fr);
-    justify-items: center;
+}
+.result-span{
+    display: flex;
+    justify-content: center;
 }
 
 .results-score {
     margin-left: .2rem;
+}
+
+.square {
+    margin-left: .7em;
+    border: .1em solid white;
+    display: flex;
+    justify-content: center;
+    width: .7em;
 }

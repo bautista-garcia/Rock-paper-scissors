@@ -1,23 +1,62 @@
+const SELECTIONS = [
+    {
+        name: 'rock',
+        emoji: '🪨',
+        beats: 'scissors'
+    }
+    ,
+    {
+        name: 'paper',
+        emoji: '📄',
+        beats: 'rock'
+    }
+    ,
+    {
+        name: 'scissors',
+        emoji: '✂️',
+        beats: 'paper'
+    }
+]
 
-let rounds = 0;
-let playerScore,computerScore;
-const possibleChoices = ["Rock","Paper","Scissors"];
+const playerScore = document.querySelector('[data-your-score]');
+const computerScore = document.querySelector('[data-computer-score]');
+
+
+
 function computerPlay(){
-    return Math.floor(Math.random() * possibleChoices.length);
-}
-let outcomes = ["Round Won","Round Lost","Round Drawn","Round Won","Round Lost"]
-function playRound(playerSelection,computerSelection){
-    let result = (playerSelection - computerSelection) + 2;
-    alert(outcomes[result]);
-    if(outcomes[result] == 'Round Won'){playerScore ++;}
-    else if(outcomes[result] == 'Round Lost'){computerScore ++;}
-    else{playerScore ++; computerScore ++;}
-}
-const rockChoice = document.getElementById('rock');
-const paperChoice = document.getElementById('paper');
-const scissorsChoice = document.getElementById('scissors');
+    const randomIndex =  Math.floor(Math.random() * SELECTIONS.length);
+    return SELECTIONS[randomIndex];
 
+}
 
+function incrementScore(scoreSpan){
+    scoreSpan.innerText = parseInt(scoreSpan.innerText) + 1
+}
+
+const selectionButtons = document.querySelectorAll('[data-selection]')
+selectionButtons.forEach(selectionButton => {
+    selectionButton.addEventListener('click', e => {
+        const selectionName = selectionButton.dataset.selection; //Uses data-selection property from html
+        const selection = SELECTIONS.find(selection => selection.name === selectionName) //We use find to access the array element that matches our player selection with all of its properties
+        makeSelection(selection);
+    })
+})
+
+function makeSelection(selection){
+    const computerSelection = computerPlay();
+    
+    yourWinner = isWinner(selection,computerSelection);
+    computerWinner = isWinner(computerSelection,selection);
+
+    if(yourWinner) incrementScore(playerScore);
+    if(computerWinner) incrementScore(computerScore);
+}
+
+function isWinner(selection,opponentSelection){
+    return selection.beats === opponentSelection.name;
+}
+
+/*
 function playGame(){
     rockChoice.addEventListener('click',()=> {playRound(0,computerPlay()); rounds ++;});
     paperChoice.addEventListener('click',()=> {playRound(1,computerPlay()); rounds ++});
